@@ -1,3 +1,9 @@
+This is simple web application of ReactJS against Pokemon GraphQL API.
+
+you can access the deployed version in http://poke-graphql.rizkyandijani.com/
+
+Thank You!
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
