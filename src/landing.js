@@ -28,23 +28,18 @@ const GET_POKEMON_INFO = gql`
 
 
 function LandingPage(props) {
-    console.log('ini props', props);
     
   const prevScrollY = useRef(0)
-  const pokeRef = useRef([])
   const [items, setItems] = React.useState(12)
   const [hasMoreItems, setHasMoreItems] = React.useState(true)
   const [goingDown, setGoingDown] = React.useState(false)
   const [goingUp, setGoingUp] = React.useState(false)
   const [pokes, setPokes] = React.useState([])
   const [typeFilter, setTypeFilter] = React.useState('none')
-  const [reload, setReload] = React.useState(false)
 
   function showItems(type = typeFilter) {
-    console.log('trigger show items', typeFilter);
     
     let itemsNew = type === 'none' ? data.pokemons.slice(0,items) : Filter(type).slice(0, items)
-    console.log(itemsNew);
     return itemsNew
   }
 
@@ -59,12 +54,10 @@ function LandingPage(props) {
       setItems(150)
     }else{
       setPokes(arr)
-      console.log('items sebelum modified', items);
       
       setTimeout(() => {
         let addition = items + 9
         setItems(addition)
-        console.log('ini item ya a', items);
       }, 1000)
     }
   }
@@ -72,10 +65,8 @@ function LandingPage(props) {
   const { data, loading, error, fetchMore } = useQuery(GET_POKEMON_INFO)
   
   useEffect(() => {
-    console.log("checkkkkk",window.scrollY)
     const handleScroll = () => {
       if(data && data.pokemons && items >= showItems().length){
-        console.log('pangillll');
         
         setHasMoreItems(false)
       }
@@ -88,11 +79,9 @@ function LandingPage(props) {
       }
       prevScrollY.current = currentScrollY
       if((window.innerHeight + currentScrollY) >= document.body.offsetHeight ){
-        console.log('harusnya reload', items);
         setGoingDown(false)
         loadMore(data.pokemons)
         }
-      console.log('currentScroll', currentScrollY, prevScrollY.current)
     }
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -104,7 +93,6 @@ function LandingPage(props) {
   }, [typeFilter])
 
   if(!data || !data.pokemons){
-    console.log('ini di loading',pokes)
     return <div style={{textAlign: "center"}}><p>loading...</p></div> 
   }
   if(error) return console.log(error) , <div>error ...</div>

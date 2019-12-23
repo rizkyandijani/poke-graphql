@@ -52,13 +52,10 @@ query GetPoke($name: String){
 function Detail(props) {
     let classes = useStyles()
     let { name } = props.match.params
-    console.log('ini name', name);
     
     let { id } = props.location.state
-    console.log('ini params',id, typeof id)
     
     const {data, loading, error} = useQuery(GET_POKEMON_INFO,{variables: {name}})
-    console.log('uhuy di detail',data)
     if(loading) return <div style={{textAlign: "center"}}><h4>Loading..</h4></div> 
     if(error) return console.log(error), <p>Error..</p>
     return (
